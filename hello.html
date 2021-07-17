@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Practice</title>
+        <script>
+            function hello(){
+                const heading = document.querySelector('h1');
+                if(heading.innerHTML === 'Goodbye!'){
+                    heading.innerHTML = 'Hello!';
+                } else {
+                    heading.innerHTML = 'Goodbye!';
+                }
+            }
+
+            let counter = 0;
+            function count(){
+                counter++;
+                document.querySelector('h2').innerHTML =counter;
+
+                if(counter % 10 === 0){
+                    alert(`Count is ${counter} already, take it easy!`);
+                }
+            }
+            
+            document.addEventListener('DOMContentLoaded', function() { 
+                document.querySelector('button').onclick = count;
+                document.querySelector('form').onsubmit = function(){
+                    const name = document.querySelector('#name').value; 
+                    alert(`Hello, ${name}`);
+                };
+            });
+
+        </script>
+    </head>
+    <body>
+        <h1>Hello!</h1>
+        <button onclick="hello()">click here</button>
+        <button class="button2">count</button>
+        <h2>0</h2>
+        <form action="">
+            <input type="text" autofocus id="name" placeholder="Name">
+            <input type="submit">
+        </form>
+    </body>
+</html> 
