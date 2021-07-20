@@ -29,15 +29,19 @@
       }
 
       function App() {
-        const x = 1;
-        const y = 2;
-        return(
-          <div>{ x + y }
-            <Hello name="harry" />
-            <Hello name="ron"/>
-            <Hello name="hermione" />  
-          </div>
+        
+        // Me devuelve la variable que pase ocmo argumento y una funcion para modificarlo
+        const [count, setCount] = React.useState(0);
 
+        function updateCount(){
+            setCount(count + 1);
+        }
+
+        return(
+            <div>
+                <div>{count}</div>
+                <button onClick={updateCount}>Count</button>
+            </div>
         );
       }
 
