@@ -16,6 +16,29 @@
 
   <script></script>
   <script src="main.js"></script>
+  <style>
+    #app {
+      text-align: center;
+      font-family: sans-serif ;
+    }
+
+    #problem{
+      font-size: 72px;
+    }
+
+    .incorrect{
+      color: red;
+    }
+
+    #win{
+      color: green;
+      text-align: center;
+      font-size: 100px;
+    }
+
+
+
+  </style>
 </head>
 <body>
     <div id="like_button_continer"></div>
@@ -33,13 +56,55 @@
         const [state, setState] = React.useState({
             num1: 1,
             num2: 2,
-            response: ""
+            response: "",
+            incorrect: false,
+            score: 0
+
         });
+
+        function inputKeyPress(event) {
+          if (event.key === "Enter"){
+            const answer = parseInt(state.response);
+           if (state.num1 + state.num2 === answer) {
+             // User got question right
+             setState({
+               response: "",
+               incorrect: false,
+               num1: Math.ceil(Math.random() * 10),
+               num2: Math.ceil(Math.random() * 10),
+               score: state.score + 1
+             });
+           } else {
+             // user got question wrong
+              setState({
+                ...state,
+                response: "",
+                incorrect: true,
+                score: state.score - 1
+              });
+            }
+          }
+        }
+
+        function updateResponse(event) {
+          setState({
+            //state operator, leaves everything as it is and changes everything else
+            ...state,
+            response: event.target.value
+          });
+        }
+
+        if( state.score === 10){
+          return (
+            <div id="win">You win!</div>
+          );
+        }
 
         return(
                 <div>
-                    <div>{state.num1} + {state.num2}</div>
-                    <input value={state.response} />
+                    <div className={state.incorrect ? "incorrect" : ""} id="problem">{state.num1} + {state.num2}</div>
+                    <input autoFocus={true} onKeyPress={inputKeyPress} onChange={updateResponse} value={state.response} />
+                    <div>Score: {state.score}</div>
                 </div>
             );
       }
